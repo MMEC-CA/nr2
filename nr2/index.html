@@ -189,6 +189,13 @@
                 } else { ctx.fillRect(obs.x, obs.y, obs.w, obs.h); }
             });
 
+            // Score display
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = 'gold';
+            ctx.font = 'bold 16px Courier New';
+            ctx.textAlign = 'left';
+            ctx.fillText('Score: ' + score, 10, 24);
+
             // Draw the Monarch Rex
             drawPlayer(ctx, player.x, player.y, player.w, player.h, player.mode === 'ship');
 
