@@ -51,13 +51,13 @@
             }
         });
 
-        // --- DRAWING THE T-REX (WITH BUTTERFLY WINGS) ---
+        // --- DRAWING THE T-REX ---
         function drawPlayer(ctx, px, py, pw, ph, isFlying) {
             ctx.save();
             ctx.translate(px, py);
 
             const rexColor = isFlying ? player.flyColor : player.baseColor;
-           
+
             // Dynamic rotation based on movement
             if (player.dy < 0) ctx.rotate(-6 * Math.PI / 180);
             if (player.dy > 1.5) ctx.rotate(6 * Math.PI / 180);
@@ -65,48 +65,6 @@
             // Set Glow for Celebration feel
             ctx.shadowBlur = isFlying ? 25 : 12;
             ctx.shadowColor = isFlying ? 'cyan' : rexColor;
-
-            // --- THE WINGS (MONARCH STYLE) ---
-            const wingColor = '#FF8C00'; // Deep Orange
-            ctx.fillStyle = wingColor;
-            ctx.strokeStyle = '#222'; // Monarch black veins
-            ctx.lineWidth = 1.5;
-
-            // Wing animation logic
-            let flapFactor = isFlying ? Math.sin(frame * 0.4) : 0.8; // Static on ground
-            let angleA = 30 * flapFactor; // Main flapping angle
-            let angleB = -10 * flapFactor; // Minor flaring angle
-
-            // Helper to draw a single Monarch wing
-            function drawWing(offsetX, scaleX) {
-                ctx.save();
-                ctx.scale(scaleX, 1);
-                ctx.translate(offsetX, ph * 0.4); // Position on back
-                ctx.rotate(angleA * Math.PI / 180);
-
-                ctx.beginPath();
-                // Core Wing Shape
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(pw * 0.3, -ph * 0.4, pw * 0.6, -ph * 0.2, pw * 0.7, 0);
-                ctx.lineTo(pw * 0.8, ph * 0.3);
-                ctx.bezierCurveTo(pw * 0.5, ph * 0.8, pw * 0.2, ph * 0.6, 0, ph * 0.3);
-                ctx.closePath();
-                ctx.fill();
-
-                // Monarch Veins (Subtle lines)
-                ctx.beginPath();
-                ctx.moveTo(pw*0.1, -ph*0.1); ctx.lineTo(pw*0.7, 0);
-                ctx.moveTo(pw*0.1, ph*0.1); ctx.lineTo(pw*0.8, ph*0.3);
-                ctx.moveTo(pw*0.2, ph*0.3); ctx.lineTo(pw*0.5, ph*0.8);
-                ctx.stroke();
-
-                ctx.restore();
-            }
-
-            // Draw two wings with dynamic separation
-            let separation = isFlying ? 15 + flapFactor*3 : 10;
-            drawWing(separation, 1); // Right wing
-            drawWing(-separation + pw*0.3, -1); // Left wing (mirrored)
 
             // --- MAIN T-REX BODY & TAIL ---
             ctx.fillStyle = rexColor;
